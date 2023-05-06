@@ -1,64 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="Assets/style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-text">Typing Speed Test Game</div>
-        <button id="leaderboard-btn" class="navbar-button">Leaderboard</button>
-      </nav>
-      <!--  -->
-      <div class="wrapper-out">
-      <div class="wrapper">
-        <input type="text" class="input-field">
-        <div class="content-box">
-          <div class="typing-text">
-            <p></p>
-          </div>
-          <div class="content">
-            <ul class="result-details">
-              <li class="time">
-                <p>Time Left:</p>
-                <span><b>30</b>s</span>
-              </li>
-              <li class="wpm">
-                <p>WPM:</p>
-                <span>0</span>
-              </li>
-              <li class="cpm">
-                <p>CPM:</p>
-                <span>0</span>
-              </li>
-            </ul>
-            <button>Start</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--  -->
-    <div id="modal" class="modal">
-      <div class="modal-content">
-        <p>Your WPM score is <span id="wpm"></span>. Please enter your name:</p>
-        <input type="text" class="name-input" id="name-input">
-        <button id="submit" class="submit-button">Submit</button>
-      </div>
-    </div>
-    <!--  -->
-    <div id="modal-container" class="modal-container">
-  <div class="modal-content">
-    <h2>Leaderboard</h2>
-    <ul id="leaderboard-list"></ul>
-    <button id="close-modal" class="close-modal-button">Close</button>
-  </div>
-</div>
 
-    <script src="Assets/jquery-3.4.1.js"></script>
-    <script src="Assets/texts.js"></script>
-    <script src="Assets/scripts.js"></script>
+  <style>
+    body {
+      margin: 0;
+    }
+    .main-div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .sub-div {
+      border: 1px solid black;
+      padding: 20px;
+    }
+    .input-style {
+      background-color: white;
+      border: 1px solid green;
+      padding: 10px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border-radius: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .info-text > p {
+      display: inline-block;
+      font-weight: bold;
+    }
+    .btn-style{
+      background-color: #429be4;
+      color: white;
+      border-radius: 5px;
+      padding: 10px 20px;
+      border: none;
+    }
+    .btn-style:hover {
+      cursor: pointer;
+      background-color: green;
+      transform: translateY(0.5px);
+    }
+  </style>
+    <!-- 
+    TODO
+    1. Have a main div, this will help us in styling
+    2. Layout all the things that we visually can see
+   -->
+
+   <div class="main-div">
+    <div class="sub-div">
+      <h1>
+        Typing Speed Test Game
+      </h1>
+      <input class="input-style" type="text" />
+      <div class="info-text">
+        <p>Time Left: <span id="counter">60</span>s</p>
+        <p>WPM: </p>
+      </div>
+      <button class="btn-style" onclick="countdown()">Start</button>
+    </div>
+   </div>
+
+   <script>
+    function countdown() {
+      let time = 60;
+      let timer = setInterval(function() {
+        if (time <= 0) {
+          clearInterval(timer);
+          document.getElementById("counter").innerHTML = "Time's Up!";
+        } else {
+          document.getElementById("counter").innerHTML = time;
+        }
+        time -= 1;
+      }, 1000);
+    }
+   </script>
 </body>
 </html>
