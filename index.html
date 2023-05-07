@@ -5,51 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="Assets/style.css">
 </head>
 <body>
-
-  <style>
-    body {
-      margin: 0;
-    }
-    .main-div {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100vh;
-    }
-    .sub-div {
-      border: 1px solid black;
-      padding: 20px;
-    }
-    .input-style {
-      background-color: white;
-      border: 1px solid green;
-      padding: 10px;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      border-radius: 10px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .info-text > p {
-      display: inline-block;
-      font-weight: bold;
-    }
-    .btn-style{
-      background-color: #429be4;
-      color: white;
-      border-radius: 5px;
-      padding: 10px 20px;
-      border: none;
-    }
-    .btn-style:hover {
-      cursor: pointer;
-      background-color: green;
-      transform: translateY(0.5px);
-    }
-  </style>
     <!-- 
     TODO
     1. Have a main div, this will help us in styling
@@ -69,20 +27,8 @@
       <button class="btn-style" onclick="countdown()">Start</button>
     </div>
    </div>
-
-   <script>
-    function countdown() {
-      let time = 60;
-      let timer = setInterval(function() {
-        if (time <= 0) {
-          clearInterval(timer);
-          document.getElementById("counter").innerHTML = "Time's Up!";
-        } else {
-          document.getElementById("counter").innerHTML = time;
-        }
-        time -= 1;
-      }, 1000);
-    }
-   </script>
+   <script src="Assets/jquery-3.4.1.js"></script>
+   <script src="Assets/texts.js"></script>
+    <script src="Assets/script.js"></script>
 </body>
 </html>
