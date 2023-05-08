@@ -19,7 +19,7 @@ leaderboardButton.on('click', function() {
 
 let latestWpm;
 let timer,
-maxTime = 30,
+maxTime = 10,
 timeLeft = maxTime,
 charIndex = mistakes = isTyping = 0;
 
@@ -69,9 +69,11 @@ function initTyping() {
         wpmTag.text(wpm);
         mistakeTag.text(mistakes);
         cpmTag.text(charIndex - mistakes);
-    } else {
+    } else if(timeLeft === 0) {
         clearInterval(timer);
-        inpField.val("");
+        showNameInput();
+        startBtn.text("Restart");
+        return latestWpm;
     }   
 }
 
