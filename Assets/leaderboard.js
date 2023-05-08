@@ -50,3 +50,9 @@ function showNameInput() {
     modalContainer.css('display', 'none');
   });
   
+const clearButton = $("#clear-leaderboard-btn");
+  clearButton.on("click", clearLeaderboard);
+  function clearLeaderboard() {
+    localStorage.removeItem('playerData');
+    showLeaderboard();
+  }
