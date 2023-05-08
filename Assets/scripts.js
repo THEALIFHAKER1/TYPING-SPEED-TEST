@@ -60,11 +60,12 @@ function initTyping() {
       characters.eq(charIndex).addClass("active");
   
       let wpm = Math.round(((charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
+      let cpm = Math.round((charIndex / (maxTime - timeLeft)) * 60);
       wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
   
       wpmTag.text(wpm);
+      cpmTag.text(cpm);
       mistakeTag.text(mistakes);
-      cpmTag.text(charIndex - mistakes);
     } else if (timeLeft === 0) {
       clearInterval(timer);
       showNameInput();
@@ -78,6 +79,7 @@ function initTyping() {
       return latestWpm;
     }
   }
+  
 
 loadParagraph();
 inpField.on("input", initTyping);
