@@ -1,30 +1,37 @@
-// leaderboard.js
-
 function showNameInput() {
-    inpField.prop("disabled", true);
-    const modal = document.getElementById("modal");
-    const wpmSpan = document.getElementById("wpm");
-  
-    wpmSpan.textContent = latestWpm;
-    modal.style.display = "block";
-  
-    const submitBtn = document.getElementById("submit");
-    submitBtn.addEventListener("click", () => {
-      const playerName = document.getElementById("name-input").value;
+  inpField.prop("disabled", true);
+  const modal = document.getElementById("modal");
+  const wpmSpan = document.getElementById("wpm");
+
+  wpmSpan.textContent = latestWpm;
+  modal.style.display = "block";
+
+  const submitBtn = document.getElementById("submit");
+  submitBtn.addEventListener("click", () => {
+    const playerName = document.getElementById("name-input").value.trim();
+    if (playerName !== "") {
       const playerData = {
         name: playerName,
         wpm: latestWpm
       };
-      let players = JSON.parse(localStorage.getItem('playerData')) || [];
-      players.push(playerData);
-      localStorage.setItem('playerData', JSON.stringify(players));
+      let players = JSON.parse(localStorage.getItem("playerData")) || [];
+      const playerIndex = players.findIndex((p) => p.name === playerName);
+      if (playerIndex === -1) {
+        players.push(playerData);
+      } else {
+        players[playerIndex].wpm = latestWpm;
+      }
+      localStorage.setItem("playerData", JSON.stringify(players));
       modal.style.display = "none";
       startGame();
-    });
-  }
+    }
+  });
+}
+
   
   function showLeaderboard() {
     const players = JSON.parse(localStorage.getItem('playerData'));
+    console.log(players);
     const leaderboardList = $('#leaderboard-list');
   
     // Clear the current list
