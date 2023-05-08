@@ -8,18 +8,14 @@ const cpmTag = $(".cpm span");
 const leaderboardButton = $('.navbar-button');
 const modalContainer = $('#modal-container');
 
-// Add an event listener to the leaderboard button
 leaderboardButton.on('click', function() {
-  // Show the modal container
   modalContainer.css('display', 'block');
-
-  // Call the showLeaderboard function from leaderboard.js
   showLeaderboard();
 });
 
 let latestWpm;
 let timer,
-maxTime = 10,
+maxTime = 60,
 timeLeft = maxTime,
 charIndex = mistakes = isTyping = 0;
 
