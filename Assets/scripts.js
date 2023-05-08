@@ -34,63 +34,69 @@ function loadParagraph() {
 function initTyping() {
     let characters = typingText.find("span");
     let typedChar = inpField.val().split("")[charIndex];
-    if(charIndex < characters.length - 1 && timeLeft > 0) {
-        if(!isTyping) {
-            timer = setInterval(initTimer, 1000);
-            isTyping = true;
+    if (charIndex < characters.length - 1 && timeLeft > 0) {
+      if (!isTyping) {
+        timer = setInterval(initTimer, 1000);
+        isTyping = true;
+      }
+      if (typedChar == null) {
+        if (charIndex > 0) {
+          charIndex--;
+          if (characters.eq(charIndex).hasClass("incorrect")) {
+            mistakes--;
+          }
+          characters.eq(charIndex).removeClass("correct incorrect");
         }
-        if(typedChar == null) {
-            if(charIndex > 0) {
-                charIndex--;
-                if(characters.eq(charIndex).hasClass("incorrect")) {
-                    mistakes--;
-                }
-                characters.eq(charIndex).removeClass("correct incorrect");
-            }
+      } else {
+        if (characters.eq(charIndex).text() == typedChar) {
+          characters.eq(charIndex).addClass("correct");
         } else {
-            if(characters.eq(charIndex).text() == typedChar) {
-                characters.eq(charIndex).addClass("correct");
-            } else {
-                mistakes++;
-                characters.eq(charIndex).addClass("incorrect");
-            }
-            charIndex++;
+          mistakes++;
+          characters.eq(charIndex).addClass("incorrect");
         }
-        characters.removeClass("active");
-        characters.eq(charIndex).addClass("active");
-
-        let wpm = Math.round(((charIndex - mistakes)  / 5) / (maxTime - timeLeft) * 60);
-        wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
-        
-        wpmTag.text(wpm);
-        mistakeTag.text(mistakes);
-        cpmTag.text(charIndex - mistakes);
-    } else if(timeLeft === 0) {
-        clearInterval(timer);
-        showNameInput();
-        startBtn.text("Restart");
-        return latestWpm;
-    }   
-}
+        charIndex++;
+      }
+      characters.removeClass("active");
+      characters.eq(charIndex).addClass("active");
+  
+      let wpm = Math.round(((charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
+      wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
+  
+      wpmTag.text(wpm);
+      mistakeTag.text(mistakes);
+      cpmTag.text(charIndex - mistakes);
+    } else if (timeLeft === 0) {
+      clearInterval(timer);
+      showNameInput();
+      startBtn.text("Restart");
+      return latestWpm;
+    } else if (charIndex === characters.length - 1) {
+      clearInterval(timer);
+      showNameInput();
+      startBtn.text("Restart");
+      latestWpm = Math.round(((charIndex - mistakes) / 5) / maxTime * 60);
+      return latestWpm;
+    }
+  }
 
 loadParagraph();
 inpField.on("input", initTyping);
 startBtn.on("click", startGame);
 
 function initTimer() {
-    if(timeLeft > 0) {
-        timeLeft--;
-        timeTag.text(timeLeft);
-        let wpm = Math.round(((charIndex - mistakes)  / 5) / (maxTime - timeLeft) * 60);
-        wpmTag.text(wpm);
-        latestWpm = wpm;
+    if (timeLeft === 0) {
+      clearInterval(timer);
+      showNameInput();
+      startBtn.text("Restart");
+      return latestWpm;
     } else {
-        clearInterval(timer);
-        showNameInput();
-        startBtn.text("Restart");
-        return latestWpm;
+      timeLeft--;
+      timeTag.text(timeLeft);
+      let wpm = Math.round(((charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
+      wpmTag.text(wpm);
+      latestWpm = wpm;
     }
-}
+  }
 
 function startGame() {
     inpField.prop("disabled", false);
